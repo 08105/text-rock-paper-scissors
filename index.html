@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rock Paper Scissors Game</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+    <div id="container">
+        <button id="Rock">Rock</button>
+        <button id="Paper">Paper</button>
+        <button id="Scissors">Scissors</button>
+    </div>
+
+<script>
+
+const playRoundResult = document.createElement('div');
+playRoundResult.classList.add('roundResult');
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+
+  // and for each one we add a 'click' listener
+  button.addEventListener('click', () => {
+    const resultOfRound = document.createElement('p');
+    const gameCounter = document.createElement('p');
+    let playingOneRoundPerClick = playRound(button.id, computerPlay());
+    
+    resultOfRound.textContent = playingOneRoundPerClick;
+    playRoundResult.appendChild(resultOfRound);
+    
+    
+    gameCounter.textContent = gCounter(playingOneRoundPerClick);
+    resultOfRound.appendChild(gameCounter);
+    container.appendChild(playRoundResult);
+
+  });
+});
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+function computerPlay(){
+          let hand = getRandomInt(3);
+          if (hand === 0){
+              return 'Rock';
+          }
+          else if (hand === 1){
+              return 'Paper';
+          }
+          else{
+              return 'Scissors';
+          }
+}
+        
+function playRound(playerSelection, computerSelection){
+        if (playerSelection.toUpperCase() === 'ROCK' && computerSelection.toUpperCase() === 'ROCK') {
+             return 'Tie';
+        }
+        else if (playerSelection.toUpperCase() === 'ROCK' && computerSelection.toUpperCase() === 'PAPER') {
+            return 'You Lose! Paper beats Rock';
+        }
+        else if (playerSelection.toUpperCase() === 'ROCK' && computerSelection.toUpperCase() === 'SCISSORS') {
+            return 'You Win! Rock beats Scissors';
+        }
+
+        if (playerSelection.toUpperCase() === 'PAPER' && computerSelection.toUpperCase() === 'ROCK') {
+            return 'You Win! Paper beats Rock';
+        }
+        else if (playerSelection.toUpperCase() === 'PAPER' && computerSelection.toUpperCase() === 'PAPER') {
+            return 'Tie';
+        }
+        else if (playerSelection.toUpperCase() === 'PAPER' && computerSelection.toUpperCase() === 'SCISSORS') {
+            return 'You Lose! Scissors beats Paper';
+        }
+
+        if (playerSelection.toUpperCase() === 'SCISSORS' && computerSelection.toUpperCase() === 'ROCK') {
+            return 'You Lose! Rock beats Scissors';
+        }
+        else if (playerSelection.toUpperCase() === 'SCISSORS' && computerSelection.toUpperCase() === 'PAPER') {
+            return 'You Win! Scissors beats Paper';
+        }
+        else if (playerSelection.toUpperCase() === 'SCISSORS' && computerSelection.toUpperCase() === 'SCISSORS') {
+            return 'Tie';
+        }
+}
+
+let playerWins = 0;
+let computerWins = 0;
+let tieCount = 0;
+
+function gCounter(oneRound){
+
+        if (oneRound.slice(0,7) === 'You Win') {
+            playerWins++;
+        }
+        else if (oneRound.slice(0,8) === 'You Lose') {
+            computerWins++;
+        }
+        else {
+            tieCount++;
+        }
+    if (playerWins == 5){
+        return "Player has won the game with five points, Refresh the page to play again!";
+    }
+    else if (computerWins == 5)
+    {
+        return "Computer has won the game with five points, Refresh the page to play again!";
+    }
+    else {
+        return "Player: " + playerWins + "\nComputer: " + computerWins + "\nTies: " + tieCount;
+    }
+}
+
+
+</script>
+</body>
+</html>
